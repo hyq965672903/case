@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.hyqup</groupId>
-    <artifactId>concurrency</artifactId>
+    <artifactId>01.concurrency</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>concurrency</name>
     <description>Demo project for Spring Boot</description>
