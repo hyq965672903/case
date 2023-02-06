@@ -1,6 +1,8 @@
-package cn.hyqup.lab04validation.base.validator.config;
+package cn.hyqup.validator.config;
 
-import cn.hyqup.lab04validation.base.validator.utils.SpringtHolder;
+import cn.hyqup.validator.aop.ParamCheckAop;
+import cn.hyqup.validator.intercepter.SpringMvcConfig;
+import cn.hyqup.validator.utils.SpringtHolder;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -13,6 +15,8 @@ import org.springframework.context.annotation.Import;
  * @description:
  */
 @Configuration
-@Import( SpringtHolder.class)
+@Import({SpringMvcConfig.class, ParamCheckAop.class, SpringtHolder.class})
 public class ValidateAutoConfig {
+
+
 }

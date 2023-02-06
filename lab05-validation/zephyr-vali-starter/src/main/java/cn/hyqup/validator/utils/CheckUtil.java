@@ -1,7 +1,7 @@
-package cn.hyqup.lab04validation.base.validator.utils;
+package cn.hyqup.validator.utils;
 
 
-import cn.hyqup.lab04validation.base.validator.core.ParamValidator;
+import cn.hyqup.validator.core.ParamValidator;
 
 import java.util.function.Function;
 import java.util.regex.Pattern;

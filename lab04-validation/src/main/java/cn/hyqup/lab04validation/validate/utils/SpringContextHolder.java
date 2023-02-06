@@ -1,4 +1,4 @@
-package cn.hyqup.lab04validation.base.validator.utils;
+package cn.hyqup.lab04validation.validate.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -6,12 +6,11 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
- * Copyright © 2021灼华. All rights reserved.
+ * Spring容器工具类
  *
- * @author create by hyq
- * @version 1.0
- * @date 2021/2/8
- * @description:
+ * @author liangbaiakai
+ * @version 0.1.0
+ * @date 2020/5/15 18:17
  */
 @Component
 public class SpringContextHolder implements ApplicationContextAware {

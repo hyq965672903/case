@@ -1,4 +1,4 @@
-package cn.hyqup.lab04validation.validate;
+package cn.hyqup.lab04validation.customvalidate;
 
 import cn.hyqup.lab04validation.base.validator.core.ParamValidator;
 import lombok.extern.slf4j.Slf4j;
