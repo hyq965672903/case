@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>lab05-validation</name>
     <packaging>pom</packaging>
-    <description>lab05-validation</description>
+    <description>lab04-validation</description>
 
     <properties>
         <java.version>1.8</java.version>
