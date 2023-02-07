@@ -23,7 +23,7 @@ public enum ResultCode implements IResultCode {
     MEDIA_TYPE_NOT_ACCEPTABLE(false, "406", "客户端请求期望响应的媒体类型与服务器响应的媒体类型不一致!"),
     MISSING_PATH_VARIABLE(false, "500", "缺少可选的路径参数!"),
     MISSING_SERVLET_REQUEST_PARAMETER(false, "400", "缺少请求参数!"),
-    REQUEST_BINDING(false, "400", "请求绑定异常!"),
+    REQUEST_BINDING(false, "400", "请求参数解析异常!"),
     CONVERSION_NOT_SUPPORTED(false, "500", "参数绑定异常!"),
     TYPE_MIS_MATCH(false, "400", "类型不匹配异常!"),
     MESSAGE_NOT_READABLE(false, "400", "消息不可读异常!"),
@@ -43,7 +43,7 @@ public enum ResultCode implements IResultCode {
      */
     SUCCESS(true, "00000", "操作成功！"),
     FAILURE(false, "A0001", "操作失败！"),
-    PARMERROR(false, "A0002", "请求参数不合法！"),
+    PARAM_ERROR(false, "A0002", "请求参数不合法！"),
 
     /**
      * 系统可预知异常

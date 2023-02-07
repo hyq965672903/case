@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 public class StudentRequest {
     private String name;
 
-    @NotNull
+    @NotNull(message = "年龄不能为空")
     private String age;
 
 

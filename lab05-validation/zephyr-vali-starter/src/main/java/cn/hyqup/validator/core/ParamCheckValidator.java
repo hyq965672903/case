@@ -3,6 +3,7 @@ package cn.hyqup.validator.core;
 
 import cn.hyqup.validator.annations.ParamCheck;
 import cn.hyqup.validator.enums.CheckType;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -15,6 +16,7 @@ import javax.validation.ConstraintValidatorContext;
  * @date 2021/2/8
  * @description:
  */
+@Slf4j
 public class ParamCheckValidator implements ConstraintValidator<ParamCheck, Object> {
 
     private String message;
@@ -36,19 +38,20 @@ public class ParamCheckValidator implements ConstraintValidator<ParamCheck, Obje
         String tmpMsg = message;
         Boolean res = false;
         try {
-            if (null != clazz) {
-                res = checkType.fun2.apply(value, clazz);
+            if (!clazz.isInterface() ) {
+                res = checkType.biFun.apply(value, clazz);
             } else {
-                res = checkType.fun1.apply(value);
+                res = checkType.fun.apply(value);
             }
         } catch (Exception e) {
+            log.info("校验发生异常:{}",e.getMessage());
             String errorMessage = "";
             if (e.getCause() != null && e.getCause().getMessage() != null) {
                 errorMessage = e.getCause().getMessage();
             } else {
                 errorMessage = e.getMessage();
             }
-            tmpMsg = message + "; raw exception occured, info: " + errorMessage;
+            tmpMsg = message;
         }
         if (!res) {
             context.disableDefaultConstraintViolation();

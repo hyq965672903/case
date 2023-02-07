@@ -30,18 +30,18 @@ public enum CheckType {
 
     public String msg;
 
-    public Function<Object, Boolean> fun1;
+    public Function<Object, Boolean> fun;
 
-    public BiFunction<Object, Class<? extends ParamValidator>, Boolean> fun2;
+    public BiFunction<Object, Class<? extends ParamValidator>, Boolean> biFun;
 
 
-    CheckType(String msg, Function<Object, Boolean> fun1) {
+    CheckType(String msg, Function<Object, Boolean> fun) {
         this.msg = msg;
-        this.fun1 = fun1;
+        this.fun = fun;
     }
 
-    CheckType(String msg, BiFunction<Object, Class<? extends ParamValidator>, Boolean> fun2) {
+    CheckType(String msg, BiFunction<Object, Class<? extends ParamValidator>, Boolean> biFun) {
         this.msg = msg;
-        this.fun2 = fun2;
+        this.biFun = biFun;
     }
 }
