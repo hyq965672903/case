@@ -1,6 +1,7 @@
 package cn.hyqup.demo.controller;
 
 import cn.hyqup.demo.bean.request.StudentRequest;
+import cn.hyqup.demo.bean.request.TeacherRequest;
 import cn.hyqup.validator.annations.ValidateProperty;
 import cn.hyqup.validator.enums.CheckType;
 import org.springframework.web.bind.annotation.*;
@@ -29,4 +30,9 @@ public class IndexController {
     public String test2(@ValidateProperty(checkType = CheckType.MobilePhone) String phone,@ValidateProperty(checkType = CheckType.True) boolean isMan) {
         return phone;
     }
+    @PostMapping("test3")
+    public TeacherRequest test3(@RequestBody TeacherRequest request) {
+        return request;
+    }
+
 }
