@@ -25,7 +25,11 @@ public class ParamCheckValidator implements ConstraintValidator<ValidateProperty
 
     @Override
     public void initialize(ValidateProperty validateProperty) {
-        message = validateProperty.message();
+        if (validateProperty.message().equals("参数校验不合法")){
+            message = validateProperty.checkType().msg;
+        }else {
+            message = validateProperty.message();
+        }
         checkType = validateProperty.checkType();
         clazz = validateProperty.clazz();
     }
@@ -45,12 +49,6 @@ public class ParamCheckValidator implements ConstraintValidator<ValidateProperty
             }
         } catch (Exception e) {
             log.info("校验发生异常:{}",e.getMessage());
-            String errorMessage = "";
-            if (e.getCause() != null && e.getCause().getMessage() != null) {
-                errorMessage = e.getCause().getMessage();
-            } else {
-                errorMessage = e.getMessage();
-            }
             tmpMsg = message;
         }
         if (!res) {

@@ -25,7 +25,7 @@ public class StudentRequest {
     private String isMan;
 
 
-    @ValidateProperty(checkType = CheckType.MobilePhone, message = "手机号码格式错误")
+    @ValidateProperty(checkType = CheckType.MobilePhone)
     private String phone;
 
 }

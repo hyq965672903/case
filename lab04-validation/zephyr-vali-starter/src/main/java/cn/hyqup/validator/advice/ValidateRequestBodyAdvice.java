@@ -31,9 +31,7 @@ public class ValidateRequestBodyAdvice implements RequestBodyAdvice{
     @Override
     public Object afterBodyRead(Object body, HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
         log.info(body.toString());
-
         ValidateUtil.validate(body);
-
         return body;
     }
 
