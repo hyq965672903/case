@@ -2,9 +2,6 @@ package cn.hyqup.validator.config;
 
 import cn.hyqup.validator.advice.ValidateRequestBodyAdvice;
 import cn.hyqup.validator.aop.ParamCheckAop;
-import cn.hyqup.validator.intercepter.SpringMvcConfig;
-import cn.hyqup.validator.utils.SpringtHolder;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
@@ -17,8 +14,7 @@ import org.springframework.context.annotation.Import;
  * @description:
  */
 @Configuration
-//@ComponentScan("cn.hyqup.validator")
-@Import({SpringMvcConfig.class, ParamCheckAop.class, SpringtHolder.class, ValidateRequestBodyAdvice.class})
+@Import({SpringMvcConfig.class, ParamCheckAop.class, ValidateRequestBodyAdvice.class})
 public class ValidateAutoConfig {
 
 
