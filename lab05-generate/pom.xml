@@ -8,20 +8,19 @@
         <version>2.6.11</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>lab04-validation</artifactId>
+    <groupId>cn.hyqup</groupId>
+    <artifactId>lab05-generate</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>lab05-validation</name>
     <packaging>pom</packaging>
-    <description>lab04-validation</description>
+    <name>lab05-generate</name>
+    <description>lab05-generate</description>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
     <modules>
-        <module>demo</module>
-        <module>zephyr-vali-starter</module>
     </modules>
+
 
 </project>
