@@ -25,7 +25,7 @@ defineProps({
   }
 })
 
-const title = ref('RuoYi-Vue-Plus');
+const title = ref('代码生成工具');
 const settingsStore = useSettingsStore();
 const sideTheme = computed(() => settingsStore.sideTheme);
 </script>
