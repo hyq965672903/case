@@ -1,56 +1,28 @@
-<script setup lang="ts">
-import { computed } from 'vue'
-import { useAppStore } from '@/store/modules/app'
-import { ConfigGlobal } from '@/components/ConfigGlobal'
-import { isDark } from '@/utils/is'
-import { useDesign } from '@/hooks/web/useDesign'
-
-const { getPrefixCls } = useDesign()
-
-const prefixCls = getPrefixCls('app')
-
-const appStore = useAppStore()
-
-const currentSize = computed(() => appStore.getCurrentSize)
-
-const greyMode = computed(() => appStore.getGreyMode)
-
-// 根据浏览器当前主题设置系统主题色
-const setDefaultTheme = () => {
-  const isDarkTheme = isDark()
-  appStore.setIsDark(isDarkTheme)
-}
-
-setDefaultTheme()
-</script>
-
 <template>
-  <ConfigGlobal :size="currentSize">
-    <RouterView :class="greyMode ? `${prefixCls}-grey-mode` : ''" />
-  </ConfigGlobal>
+  <div id="app">
+    <router-view />
+    <theme-picker />
+  </div>
 </template>
 
-<style lang="less">
-@prefix-cls: ~'@{namespace}-app';
+<script>
+import ThemePicker from "@/components/ThemePicker";
 
-.size {
-  width: 100%;
-  height: 100%;
-}
-
-html,
-body {
-  padding: 0 !important;
-  margin: 0;
-  overflow: hidden;
-  .size;
-
-  #app {
-    .size;
-  }
-}
-
-.@{prefix-cls}-grey-mode {
-  filter: grayscale(100%);
+export default {
+  name: "App",
+  components: { ThemePicker },
+    metaInfo() {
+        return {
+            title: this.$store.state.settings.dynamicTitle && this.$store.state.settings.title,
+            titleTemplate: title => {
+                return title ? `${title} - ${process.env.VUE_APP_TITLE}` : process.env.VUE_APP_TITLE
+            }
+        }
+    }
+};
+</script>
+<style scoped>
+#app .theme-picker {
+  display: none;
 }
 </style>
