@@ -2,3 +2,4 @@
 /lab02-juc/target/
 /jvm/target/
 /logs/
+**/logs/*
