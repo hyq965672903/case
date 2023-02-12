@@ -2,7 +2,6 @@ package cn.hyqup.generate.controller;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.io.IoUtil;
-import cn.hyqup.generate.common.core.controller.BaseController;
 import cn.hyqup.generate.common.core.domain.PageQuery;
 import cn.hyqup.generate.common.core.domain.R;
 import cn.hyqup.generate.common.core.page.TableDataInfo;
@@ -27,7 +26,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/tool/gen")
-public class GenController extends BaseController {
+public class GenController  {
 
     private final IGenTableService genTableService;
 
