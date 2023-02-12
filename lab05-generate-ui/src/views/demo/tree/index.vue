@@ -1,21 +1,19 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch">
       <el-form-item label="树节点名" prop="treeName">
         <el-input
           v-model="queryParams.treeName"
           placeholder="请输入树节点名"
           clearable
-          size="small"
-          @keyup.enter.native="handleQuery"
+          style="width: 200px"
+          @keyup.enter="handleQuery"
         />
       </el-form-item>
       <el-form-item label="创建时间">
         <el-date-picker
           v-model="daterangeCreateTime"
-          size="small"
-          style="width: 240px"
-          value-format="yyyy-MM-dd"
+          value-format="YYYY-MM-DD"
           type="daterange"
           range-separator="-"
           start-placeholder="开始日期"
@@ -23,8 +21,8 @@
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button type="primary" icon="search" @click="handleQuery">搜索</el-button>
+        <el-button icon="Refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 
@@ -33,22 +31,20 @@
         <el-button
           type="primary"
           plain
-          icon="el-icon-plus"
-          size="mini"
+          icon="Plus"
           @click="handleAdd"
           v-hasPermi="['demo:tree:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="info"
-          plain
-          icon="el-icon-sort"
-          size="mini"
-          @click="toggleExpandAll"
+            type="info"
+            plain
+            icon="Sort"
+            @click="toggleExpandAll"
         >展开/折叠</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
     <el-table
@@ -59,47 +55,34 @@
       :default-expand-all="isExpandAll"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
     >
-      <el-table-column label="父id" prop="parentId" />
-      <el-table-column label="部门id" align="center" prop="deptId" />
-      <el-table-column label="用户id" align="center" prop="userId" />
-      <el-table-column label="树节点名" align="center" prop="treeName" />
-      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+      <el-table-column label="父id" prop="parentId" v-if="columns[0].visible" />
+      <el-table-column label="部门id" align="center" prop="deptId" v-if="columns[1].visible" />
+      <el-table-column label="用户id" align="center" prop="userId" v-if="columns[2].visible" />
+      <el-table-column label="树节点名" align="center" prop="treeName" v-if="columns[3].visible" />
+      <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[4].visible" width="180">
         <template #default="scope">
           <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
         <template #default="scope">
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
-            v-hasPermi="['demo:tree:edit']"
-          >修改</el-button>
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-plus"
-            @click="handleAdd(scope.row)"
-            v-hasPermi="['demo:tree:add']"
-          >新增</el-button>
-          <el-button
-            size="mini"
-            type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['demo:tree:remove']"
-          >删除</el-button>
+          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['demo:tree:edit']">修改</el-button>
+          <el-button link type="primary" icon="Plus" @click="handleAdd(scope.row)" v-hasPermi="['demo:tree:add']">新增</el-button>
+          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['demo:tree:remove']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <!-- 添加或修改测试树表对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+    <el-dialog :title="title" v-model="open" width="500px" append-to-body>
+      <el-form ref="treeRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="父id" prop="parentId">
-          <treeselect v-model="form.parentId" :options="treeOptions" :normalizer="normalizer" placeholder="请选择父id" />
+          <treeselect
+              v-model:value="form.parentId"
+              :options="treeOptions"
+              :objMap="{ value: 'id', label: 'true_name', children: 'children' }"
+              placeholder="请选择父id"
+          />
         </el-form-item>
         <el-form-item label="部门id" prop="deptId">
           <el-input v-model="form.deptId" placeholder="请输入部门id" />
@@ -111,203 +94,187 @@
           <el-input v-model="form.treeName" placeholder="请输入树节点名" />
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
-      </div>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button :loading="buttonLoading" type="primary" @click="submitForm">确 定</el-button>
+          <el-button @click="cancel">取 消</el-button>
+        </div>
+      </template>
     </el-dialog>
   </div>
 </template>
 
-<script>
+<script setup name="Tree">
 import { listTree, getTree, delTree, addTree, updateTree } from "@/api/demo/tree";
-import Treeselect from "@riophae/vue-treeselect";
-import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 
-export default {
-  name: "Tree",
-  components: {
-    Treeselect
+const { proxy } = getCurrentInstance();
+
+const treeList = ref([]);
+const open = ref(false);
+const buttonLoading = ref(false);
+const loading = ref(true);
+const showSearch = ref(true);
+const single = ref(true);
+const multiple = ref(true);
+const total = ref(0);
+const title = ref("");
+const isExpandAll = ref(true);
+const refreshTable = ref(true);
+const treeOptions = ref(undefined);
+const daterangeCreateTime = ref([]);
+
+// 列显隐信息
+const columns = ref([
+  { key: 0, label: `父id`, visible: false },
+  { key: 1, label: `部门id`, visible: true },
+  { key: 2, label: `用户id`, visible: true },
+  { key: 3, label: `树节点名`, visible: true },
+  { key: 4, label: `创建时间`, visible: true }
+]);
+
+const data = reactive({
+  // 查询参数
+  queryParams: {
+    treeName: null,
+    createTime: null,
   },
-  data() {
-    return {
-      //按钮loading
-      buttonLoading: false,
-      // 遮罩层
-      loading: true,
-      // 显示搜索条件
-      showSearch: true,
-      // 测试树表表格数据
-      treeList: [],
-      // 测试树表树选项
-      treeOptions: [],
-      // 弹出层标题
-      title: "",
-      // 是否显示弹出层
-      open: false,
-      // 是否展开，默认全部展开
-      isExpandAll: true,
-      // 重新渲染表格状态
-      refreshTable: true,
-      // 创建时间时间范围
-      daterangeCreateTime: [],
-      // 查询参数
-      queryParams: {
-        treeName: null,
-        createTime: null,
-      },
-      // 表单参数
-      form: {},
-      // 表单校验
-      rules: {
-        treeName: [
-          { required: true, message: "树节点名不能为空", trigger: "blur" }
-        ],
-      }
-    };
-  },
-  created() {
-    this.getList();
-  },
-  methods: {
-    /** 查询测试树表列表 */
-    getList() {
-      this.loading = true;
-      this.queryParams.params = {};
-      if (null != this.daterangeCreateTime && '' != this.daterangeCreateTime) {
-        this.queryParams.params["beginCreateTime"] = this.daterangeCreateTime[0];
-        this.queryParams.params["endCreateTime"] = this.daterangeCreateTime[1];
-      }
-      listTree(this.queryParams).then(response => {
-        this.treeList = this.handleTree(response.data, "id", "parentId");
-        this.loading = false;
-      });
-    },
-    /** 转换测试树表数据结构 */
-    normalizer(node) {
-      if (node.children && !node.children.length) {
-        delete node.children;
-      }
-      return {
-        id: node.id,
-        label: node.treeName,
-        children: node.children
-      };
-    },
-    /** 查询测试树表下拉树结构 */
-    getTreeselect() {
-      listTree().then(response => {
-        this.treeOptions = [];
-        const data = { id: 0, treeName: '顶级节点', children: [] };
-        data.children = this.handleTree(response.data, "id", "parentId");
-        this.treeOptions.push(data);
-      });
-    },
-    // 取消按钮
-    cancel() {
-      this.open = false;
-      this.reset();
-    },
-    // 表单重置
-    reset() {
-      this.form = {
-        id: null,
-        parentId: null,
-        deptId: null,
-        userId: null,
-        treeName: null,
-        version: null,
-        createTime: null,
-        createBy: null,
-        updateTime: null,
-        updateBy: null,
-        delFlag: null
-      };
-      this.resetForm("form");
-    },
-    /** 搜索按钮操作 */
-    handleQuery() {
-      this.getList();
-    },
-    /** 重置按钮操作 */
-    resetQuery() {
-      this.daterangeCreateTime = [];
-      this.resetForm("queryForm");
-      this.handleQuery();
-    },
-    /** 新增按钮操作 */
-    handleAdd(row) {
-      this.reset();
-      this.getTreeselect();
-      if (row != null && row.id) {
-        this.form.parentId = row.id;
-      } else {
-        this.form.parentId = 0;
-      }
-      this.open = true;
-      this.title = "添加测试树表";
-    },
-    /** 展开/折叠操作 */
-    toggleExpandAll() {
-      this.refreshTable = false;
-      this.isExpandAll = !this.isExpandAll;
-      this.$nextTick(() => {
-        this.refreshTable = true;
-      });
-    },
-    /** 修改按钮操作 */
-    handleUpdate(row) {
-      this.loading = true;
-      this.reset();
-      this.getTreeselect();
-      if (row != null) {
-        this.form.parentId = row.id;
-      }
-      getTree(row.id).then(response => {
-        this.loading = false;
-        this.form = response.data;
-        this.open = true;
-        this.title = "修改测试树表";
-      });
-    },
-    /** 提交按钮 */
-    submitForm() {
-      this.$refs["form"].validate(valid => {
-        if (valid) {
-          this.buttonLoading = true;
-          if (this.form.id != null) {
-            updateTree(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
-              this.open = false;
-              this.getList();
-            }).finally(() => {
-              this.buttonLoading = false;
-            });
-          } else {
-            addTree(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
-              this.open = false;
-              this.getList();
-            }).finally(() => {
-              this.buttonLoading = false;
-            });
-          }
-        }
-      });
-    },
-    /** 删除按钮操作 */
-    handleDelete(row) {
-      this.$modal.confirm('是否确认删除测试树表编号为"' + row.id + '"的数据项？').then(() => {
-        this.loading = true;
-        return delTree(row.id);
-      }).then(() => {
-        this.loading = false;
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).finally(() => {
-        this.loading = false;
-      });
-    }
+  // 表单参数
+  form: {},
+  // 表单校验
+  rules: {
+    treeName: [
+      { required: true, message: "树节点名不能为空", trigger: "blur" }
+    ],
   }
-};
+});
+
+const { queryParams, form, rules } = toRefs(data);
+
+/** 查询测试树表列表 */
+function getList() {
+  loading.value = true;
+  listTree(proxy.addDateRange(queryParams.value, daterangeCreateTime.value, "CreateTime")).then(response => {
+    treeList.value = proxy.handleTree(response.data, "id", "parentId");
+    total.value = response.total;
+    loading.value = false;
+  });
+}
+/** 查询部门下拉树结构 */
+async function getTreeselect() {
+  await listTree().then(response => {
+    treeOptions.value = [];
+    const data = { id: 0, treeName: '顶级节点', children: [] };
+    data.children = proxy.handleTree(response.data, "id", "parentId");
+    treeOptions.value.push(data);
+  });
+}
+/** 取消按钮 */
+function cancel() {
+  open.value = false;
+  reset();
+}
+/** 表单重置 */
+function reset() {
+  form.value = {
+    id: undefined,
+    parentId: undefined,
+    deptId: undefined,
+    userId: undefined,
+    treeName: undefined,
+    version: undefined,
+    createTime: undefined,
+    createBy: undefined,
+    updateTime: undefined,
+    updateBy: undefined,
+    delFlag: undefined
+  };
+  proxy.resetForm("treeRef");
+}
+/** 搜索按钮操作 */
+function handleQuery() {
+  getList();
+}
+/** 重置按钮操作 */
+function resetQuery() {
+  daterangeCreateTime.value = [];
+  proxy.resetForm("queryRef");
+  handleQuery();
+}
+/** 新增按钮操作 */
+async function handleAdd(row) {
+  reset();
+  await getTreeselect();
+  if (row != null && row.id) {
+    form.value.parentId = row.id;
+  } else {
+    form.value.parentId = 0;
+  }
+  open.value = true;
+  title.value = "添加测试树表";
+}
+
+/** 展开/折叠操作 */
+function toggleExpandAll() {
+  refreshTable.value = false;
+  isExpandAll.value = !isExpandAll.value;
+  nextTick(() => {
+    refreshTable.value = true;
+  });
+}
+
+/** 修改按钮操作 */
+async function handleUpdate(row) {
+  loading.value = true;
+  reset();
+  await getTreeselect();
+  if (row != null) {
+    form.value.parentId = row.id;
+  }
+  getTree(row.id).then((response) => {
+    loading.value = false;
+    form.value = response.data;
+    open.value = true;
+    title.value = "修改测试树表";
+  });
+}
+/** 提交按钮 */
+function submitForm() {
+  proxy.$refs["treeRef"].validate(valid => {
+    if (valid) {
+      buttonLoading.value = true;
+      if (form.value.ossConfigId != null) {
+        updateTree(form.value).then(response => {
+          proxy.$modal.msgSuccess("修改成功");
+          open.value = false;
+          getList();
+        }).finally(() => {
+          buttonLoading.value = false;
+        });
+      } else {
+        addTree(form.value).then(response => {
+          proxy.$modal.msgSuccess("新增成功");
+          open.value = false;
+          getList();
+        }).finally(() => {
+          buttonLoading.value = false;
+        });
+      }
+    }
+  });
+}
+/** 删除按钮操作 */
+function handleDelete(row) {
+  proxy.$modal.confirm('是否确认删除测试单表编号为"' + row.id + '"的数据项?').then(() => {
+    loading.value = true;
+    return delTree(row.id);
+  }).then(() => {
+    loading.value = false;
+    getList();
+    proxy.$modal.msgSuccess("删除成功");
+  }).finally(() => {
+    loading.value = false;
+  });
+}
+
+getList()
 </script>

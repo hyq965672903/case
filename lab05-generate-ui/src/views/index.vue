@@ -2,18 +2,15 @@
   <div class="app-container home">
     <el-row :gutter="20">
       <el-col :sm="24" :lg="12" style="padding-left: 20px">
-        <h2>RuoYi-Vue-Plus后台管理框架</h2>
+        <h2>RuoYi-Vue-Plus后台管理系统</h2>
         <p>
           RuoYi-Vue-Plus 是基于 RuoYi-Vue 针对 分布式集群 场景升级(不兼容原框架)
           <br/>
           * 前端开发框架 Vue、Element UI<br/>
           * 后端开发框架 Spring Boot<br/>
-          * 容器框架 Undertow 基于 XNIO 的高性能容器<br/>
-          * 权限认证框架 Sa-Token、Jwt 支持多终端认证系统<br/>
+          * 容器框架 Undertow 基于 Netty 的高性能容器<br/>
+          * 权限认证框架 Sa-Token 支持多终端认证系统<br/>
           * 关系数据库 MySQL 适配 8.X 最低 5.7<br/>
-          * 关系数据库 Oracle 适配 11g 12c<br/>
-          * 关系数据库 PostgreSQL 适配 13 14<br/>
-          * 关系数据库 SQLServer 适配 2017 2019<br/>
           * 缓存数据库 Redis 适配 6.X 最低 4.X<br/>
           * 数据库框架 Mybatis-Plus 快速 CRUD 增加开发效率<br/>
           * 数据库框架 p6spy 更强劲的 SQL 分析<br/>
@@ -22,11 +19,11 @@
           * Redis客户端 Redisson 性能强劲、API丰富<br/>
           * 分布式限流 Redisson 全局、请求IP、集群ID 多种限流<br/>
           * 分布式锁 Lock4j 注解锁、工具锁 多种多样<br/>
-          * 分布式幂等 Redisson 拦截重复提交<br/>
+          * 分布式幂等 Lock4j 基于分布式锁实现<br/>
           * 分布式链路追踪 SkyWalking 支持链路追踪、网格分析、度量聚合、可视化<br/>
           * 分布式任务调度 Xxl-Job 高性能 高可靠 易扩展<br/>
-          * 分布式文件存储 Minio 本地存储<br/>
-          * 分布式云存储 七牛、阿里、腾讯 云存储<br/>
+          * 文件存储 Minio 本地存储<br/>
+          * 文件存储 七牛、阿里、腾讯	云存储<br/>
           * 监控框架 SpringBoot-Admin 全方位服务监控<br/>
           * 校验框架 Validation 增强接口安全性 严谨性<br/>
           * Excel框架 Alibaba EasyExcel 性能优异 扩展性强<br/>
@@ -45,26 +42,23 @@
         <p>
           <el-button
             type="primary"
-            size="mini"
-            icon="el-icon-cloudy"
+            icon="Cloudy"
             plain
             @click="goTarget('https://gitee.com/JavaLionLi/RuoYi-Vue-Plus')"
             >访问码云</el-button
           >
           <el-button
-            type="primary"
-            size="mini"
-            icon="el-icon-cloudy"
+            icon="HomeFilled"
             plain
-            @click="goTarget('https://github.com/JavaLionLi/RuoYi-Vue-Plus')"
-          >访问GitHub</el-button
+            @click="goTarget('https://gitee.com/JavaLionLi/RuoYi-Vue-Plus')"
+            >访问主页</el-button
           >
           <el-button
-            type="primary"
-            size="mini"
-            icon="el-icon-cloudy"
-            plain
-            @click="goTarget('https://gitee.com/JavaLionLi/RuoYi-Vue-Plus/wikis/pages?sort_id=4106467&doc_id=1469725')"
+              type="primary"
+              size="mini"
+              icon="el-icon-cloudy"
+              plain
+              @click="goTarget('https://gitee.com/JavaLionLi/RuoYi-Vue-Plus/wikis/pages?sort_id=4106467&doc_id=1469725')"
           >更新日志</el-button
           >
         </p>
@@ -108,21 +102,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Index",
-  data() {
-    return {
-      // 版本号
-      version: "4.5.0",
-    };
-  },
-  methods: {
-    goTarget(href) {
-      window.open(href, "_blank");
-    },
-  },
-};
+<script setup name="Index">
+const version = ref('4.5.0')
+
+function goTarget(url) {
+  window.open(url, '__blank')
+}
 </script>
 
 <style scoped lang="scss">
