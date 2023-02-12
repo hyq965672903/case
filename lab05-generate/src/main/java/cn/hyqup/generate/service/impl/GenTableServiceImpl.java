@@ -1,4 +1,4 @@
-package cn.hyqup.generate.service;
+package cn.hyqup.generate.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.IoUtil;
@@ -16,6 +16,7 @@ import cn.hyqup.generate.domain.GenTable;
 import cn.hyqup.generate.domain.GenTableColumn;
 import cn.hyqup.generate.mapper.GenTableColumnMapper;
 import cn.hyqup.generate.mapper.GenTableMapper;
+import cn.hyqup.generate.service.IGenTableService;
 import cn.hyqup.generate.util.GenUtils;
 import cn.hyqup.generate.util.VelocityInitializer;
 import cn.hyqup.generate.util.VelocityUtils;
