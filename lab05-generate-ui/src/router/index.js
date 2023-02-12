@@ -57,19 +57,19 @@ export const constantRoutes = [
     component: () => import('@/views/error/401'),
     hidden: true
   },
-  {
-    path: '',
-    component: Layout,
-    redirect: '/index',
-    children: [
-      {
-        path: '/index',
-        component: () => import('@/views/index'),
-        name: 'Index',
-        meta: { title: '首页', icon: 'dashboard', affix: true }
-      }
-    ]
-  },
+  // {
+  //   path: '',
+  //   component: Layout,
+  //   redirect: '/index',
+  //   children: [
+  //     {
+  //       path: '/index',
+  //       component: () => import('@/views/index'),
+  //       name: 'Index',
+  //       meta: { title: '首页', icon: 'dashboard', affix: true }
+  //     }
+  //   ]
+  // },
   {
     path: '/user',
     component: Layout,
@@ -81,6 +81,33 @@ export const constantRoutes = [
         component: () => import('@/views/system/user/profile/index'),
         name: 'Profile',
         meta: { title: '个人中心', icon: 'user' }
+      }
+    ]
+  },
+  {
+    path: '',
+    component: Layout,
+    redirect: '/tools/codegen'
+  },
+  {
+    path: '/tools',
+    component: Layout,
+    hidden: false,
+    name:"系统工具",
+    meta: { title: '系统工具', icon: 'tool' },
+    redirect: 'noredirect',
+    children: [
+      {
+        path: 'codegen',
+        component: () => import('@/views/tool/gen/index'),
+        name: 'Gen',
+        meta: { title: '代码生成', icon: 'code' }
+      },
+      {
+        path: 'build',
+        component: () => import('@/views/tool/build/index'),
+        name: 'Build',
+        meta: { title: '表单构建', icon: 'build' }
       }
     ]
   }
