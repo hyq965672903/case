@@ -10,6 +10,9 @@ export default defineConfig(({ mode, command }) => {
     // 默认情况下，vite 会假设你的应用是被部署在一个域名的根路径上
     base: env.VITE_APP_CONTEXT_PATH,
     plugins: createVitePlugins(env, command === 'build'),
+    build: {
+      outDir: "../templates", // 打包文件的输出目录
+    },
     resolve: {
       // https://cn.vitejs.dev/config/#resolve-alias
       alias: {
