@@ -3,7 +3,6 @@ package cn.hyqup.demo.controller;
 import cn.hyqup.demo.bean.request.StudentRequest;
 import cn.hyqup.demo.bean.request.TeacherRequest;
 import cn.hyqup.validator.annations.ValidateParam;
-import cn.hyqup.validator.annations.ValidateProperty;
 import cn.hyqup.validator.enums.CheckType;
 import org.springframework.web.bind.annotation.*;
 
