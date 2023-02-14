@@ -7,3 +7,6 @@ ValidateImplicitParams:隐式完成校验多个参数 AOP
 
 # 延伸阅读
 
+v1.0.0 
+1、完成基础对json对象校验和对param校验
+2、独立starter服务使用

@@ -3,3 +3,4 @@
 /jvm/target/
 /logs/
 **/logs/*
+/lab04-validation/lab04-validation.iml
