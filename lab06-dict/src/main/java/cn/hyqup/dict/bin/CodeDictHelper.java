@@ -3,6 +3,8 @@ package cn.hyqup.dict.bin;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.text.NamingCase;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.db.Db;
 import cn.hutool.db.Entity;
 import cn.hutool.extra.template.Template;
@@ -12,8 +14,10 @@ import cn.hutool.extra.template.TemplateUtil;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class CodeDictHelper {
@@ -37,14 +41,33 @@ public class CodeDictHelper {
 
         codeCategoryList.forEach(codeDict -> {
             List<CodeDict> dictList = dictGroup.get(codeDict.getDictCategory());
-//            ClassPathResource resource=new ClassPathResource();
-//            ResourceUtil.
-//            FileUtil.getAbsolutePath();
-//            FileUtil.createTempFile()
+            dictList.forEach(it->{
+                it.setDictCode(it.getDictCode().toUpperCase());
+            });
+
+            String enumClassName = getEnumClassName(codeDict.getDictCategory());
+            String classPath=path+"/"+enumClassName+".java";
+            File file = FileUtil.newFile(classPath);
+            Map map=new HashMap();
+            map.put("className",enumClassName);
+            map.put("dictList",dictList);
+            template.render(map,file);
 
         });
 
 
+    }
+
+    /**
+     *
+     * @param str
+     * @return
+     */
+    private static String getEnumClassName(String str){
+        String str1 = StrUtil.toCamelCase(str);
+        String str2 = StrUtil.upperFirst(str1);
+        String str3 = StrUtil.appendIfMissing(str2, "Enum", "Enum");
+        return str3;
     }
 
     private static String basePath() {

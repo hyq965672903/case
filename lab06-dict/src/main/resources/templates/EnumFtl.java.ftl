@@ -4,19 +4,18 @@ import cn.hyqup.dict.base.IBaseEnum;
 import lombok.Getter;
 
 
-public enum {{className}} implements IBaseEnum<String> {
-    MALE("1", "男"),
-    FEMALE("2", "女"),
+public enum ${className} implements IBaseEnum {
+    <#list dictList! as dict>
+    ${dict.dictCode}("${dict.dictValue}", "${dict.dictName}"),
+    </#list>
     ;
 
     @Getter
-    private String code;
+    private String value;
     @Getter
     private String name;
-
-
-    SexEnum(String code, String name) {
-        this.code = code;
+    ${className}(String value, String name) {
+        this.value = value;
         this.name = name;
     }
 }
