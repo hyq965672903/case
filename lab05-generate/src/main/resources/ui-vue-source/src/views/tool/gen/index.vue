@@ -231,7 +231,7 @@ function handleGenTable(row) {
       proxy.$modal.msgSuccess("成功生成到自定义路径：" + row.genPath);
     });
   } else {
-    proxy.$download.zip("/tool/gen/batchGenCode?tables=" + tbNames, "ruoyi.zip");
+    proxy.$download.zip("/tool/gen/batchGenCode?tables=" + tbNames, "geneartorCode.zip");
   }
 }
 /** 同步数据库操作 */
@@ -258,7 +258,7 @@ function handlePreview(row) {
   previewTable(row.tableId).then(response => {
     preview.value.data = response.data;
     preview.value.open = true;
-    preview.value.activeName = "domain.java";
+    preview.value.activeName = "purchase_do.java";
   });
 }
 /** 复制代码成功 */
