@@ -70,20 +70,17 @@ public interface GenConstants {
     /**
      * BO对象 不需要添加字段
      */
-    String[] COLUMNNAME_NOT_ADD = {"create_by", "create_time", "del_flag", "update_by",
-        "update_time", "version"};
+    String[] COLUMNNAME_NOT_ADD = {"fkUserCreate", "gmtCreate", "fkUserModified", "gmtModified","enabled"};
 
     /**
      * BO对象 不需要编辑字段
      */
-    String[] COLUMNNAME_NOT_EDIT = {"create_by", "create_time", "del_flag", "update_by",
-        "update_time", "version"};
+    String[] COLUMNNAME_NOT_EDIT = {"fkUserCreate", "gmtCreate", "fkUserModified", "gmtModified","enabled"};
 
     /**
      * VO对象 不需要返回字段
      */
-    String[] COLUMNNAME_NOT_LIST = {"create_by", "create_time", "del_flag", "update_by",
-        "update_time", "version"};
+    String[] COLUMNNAME_NOT_LIST = {"enabled"};
 
     /**
      * BO对象 不需要查询字段
@@ -94,7 +91,8 @@ public interface GenConstants {
     /**
      * Entity基类字段
      */
-    String[] BASE_ENTITY = {"createBy", "createTime", "updateBy", "updateTime"};
+//    String[] BASE_ENTITY = {"createBy", "createTime", "updateBy", "updateTime"};
+    String[] BASE_ENTITY = {"fkUserCreate", "gmtCreate", "fkUserModified", "gmtModified","enabled"};
 
     /**
      * Tree基类字段
