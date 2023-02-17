@@ -172,7 +172,7 @@ public interface GenConstants {
     /**
      * 时间类型
      */
-    String TYPE_DATE = "Date";
+    String TYPE_DATE = "LocalDateTime";
 
     /**
      * 模糊查询
