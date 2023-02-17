@@ -1,0 +1,15 @@
+package ${packageName}.mapper.${moduleName};
+
+import sg.ncs.csu.mapper.BaseMapperPlus;
+import ${packageName}.pojo.${moduleName}.VO.${ClassName}VO;
+import ${packageName}.pojo.${moduleName}.entity.${ClassName}DO;
+
+/**
+ * ${functionName}Mapper接口
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassName}Mapper, ${ClassName}DO, ${ClassName}VO> {
+
+}

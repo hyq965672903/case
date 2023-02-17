@@ -1,0 +1,29 @@
+package ${packageName}.pojo.${moduleName}.request;
+
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import javax.validation.constraints.*;
+import sg.ncs.csu.base.BasePageRequest;
+
+import java.util.Date;
+
+#foreach ($import in $importList)
+import ${import};
+#end
+
+
+/**
+ * ${functionName}业务对象 ${tableName}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@ApiModel("${functionName}分页查询对象")
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class ${ClassName}PageRequest extends BasePageRequest  {
+
+    @ApiModelProperty("关键字")
+    private String keywords;
+}

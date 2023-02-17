@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+　#set($varName = "")
+#foreach( $column in $columns)
+#set($varName=$varName+$column.columnName+",")
+#end
+#set($varName=$varName.substring(0,$varName.lastIndexOf(',')))
+<mapper namespace="${packageName}.mapper.${moduleName}.${ClassName}Mapper">
+    <resultMap type="${packageName}.pojo.${moduleName}.entity.${ClassName}DO" id="BaseResultMap">
+#foreach ($column in $columns)
+        <result property="${column.javaField}" column="${column.columnName}"/>
+#end
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        ${varName}
+    <sql>
+</mapper>

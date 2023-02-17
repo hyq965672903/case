@@ -1,0 +1,89 @@
+package ${packageName}.service.${moduleName}.impl;
+
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.ObjectUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import ${packageName}.mapper.${moduleName}.${ClassName}Mapper;
+import ${packageName}.pojo.${moduleName}.VO.${ClassName}VO;
+import ${packageName}.pojo.${moduleName}.entity.${ClassName}DO;
+import ${packageName}.pojo.${moduleName}.request.${ClassName}PageRequest;
+import ${packageName}.pojo.${moduleName}.request.${ClassName}Request;
+import sg.ncs.csu.result.PageVO;
+import sg.ncs.csu.result.Result;
+import ${packageName}.service.${moduleName}.${ClassName}Service;
+
+import java.util.List;
+
+#set($littelClassName="${ClassName.substring(0, 1).toLowerCase()}${ClassName.substring(1)}")
+
+/**
+ * ${functionName}Service业务层处理
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@RequiredArgsConstructor
+@Service
+public class ${ClassName}ServiceImpl implements I${ClassName}Service {
+
+    private final ${ClassName}Mapper ${littelClassName}Mapper;
+
+    @Override
+    public Result<${ClassName}VO> getById(Long pkId) {
+        ${ClassName}VO ${littelClassName}VO = ${littelClassName}Mapper.selectVoById(pkId);
+        if (ObjectUtil.isNotNull(${littelClassName}VO)) {
+            return Result.data(${littelClassName}VO);
+        }
+        return Result.fail();
+    }
+
+    @Override
+    public Result<PageVO<${ClassName}VO>> listPage(${ClassName}PageRequest request) {
+        LambdaQueryWrapper<${ClassName}DO> lqw = Wrappers.lambdaQuery();
+        Page<${ClassName}VO> pageVOList = ${littelClassName}Mapper.selectVoPage(request.build(), lqw);
+        return Result.data(pageVOList);
+    }
+
+    @Override
+    public Result<List<${ClassName}VO>> list(${ClassName}Request bo) {
+        List<${ClassName}VO> list = ${littelClassName}Mapper.selectVoList(null);
+        if (CollectionUtil.isNotEmpty(list)) {
+            return Result.data(list);
+        }
+        return Result.fail();
+    }
+
+    @Override
+    public Result save(${ClassName}Request request) {
+        ${ClassName}DO ${littelClassName}DO = BeanUtil.copyProperties(request, ${ClassName}DO.class);
+        int flag = ${littelClassName}Mapper.insert(${littelClassName}DO);
+        if (flag > 0) {
+            return Result.success();
+        }
+        return Result.fail();
+    }
+
+    @Override
+    public Result update(${ClassName}Request request) {
+        ${ClassName}DO ${littelClassName}DO = BeanUtil.copyProperties(request, ${ClassName}DO.class);
+        int flag = ${littelClassName}Mapper.updateById(${littelClassName}DO);
+        if (flag > 0) {
+            return Result.success();
+        }
+        return Result.fail();
+    }
+
+    @Override
+    public Result remove(Long pkId) {
+        int flag = ${littelClassName}Mapper.deleteById(pkId);
+        if (flag > 0) {
+            return Result.success();
+        }
+        return Result.fail();
+    }
+}

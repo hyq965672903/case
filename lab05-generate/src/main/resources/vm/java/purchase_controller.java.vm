@@ -1,0 +1,86 @@
+package ${packageName}.controller.${moduleName};
+
+
+import lombok.RequiredArgsConstructor;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.*;
+import ${packageName}.pojo.${moduleName}.VO.${ClassName}VO;
+import ${packageName}.pojo.${moduleName}.request.${ClassName}PageRequest;
+import ${packageName}.pojo.${moduleName}.request.${ClassName}Request;
+import sg.ncs.csu.result.PageVO;
+import sg.ncs.csu.result.Result;
+import ${packageName}.service.${moduleName}.${ClassName}Service;
+
+
+#set($serviceName="${ClassName.substring(0, 1).toLowerCase()}${ClassName.substring(1)}Service")
+
+/**
+ * ${functionName}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Validated
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("/api/${moduleName}/${businessName}")
+public class ${ClassName}Controller extends BaseController {
+
+    private final ${ClassName}Service ${serviceName};
+
+   /**
+     * 获取${functionName}详细信息
+     *
+     * @param ${pkColumn.javaField} 主键
+     */
+    @ResponseBody
+    @GetMapping(value = "/getById")
+    public Result<${ClassName}VO> getById(@RequestParam Long pkId) {
+        return ${serviceName}.getById(pkId);
+    }
+
+   /**
+     * 查询${functionName}分页列表
+     */
+    @ResponseBody
+    @PostMapping(value = "/listPage")
+    public Result<PageVO<${ClassName}VO>> listPage(${ClassName}PageRequest request) {
+        return ${serviceName}.listPage(request);
+    }
+
+    /**
+     * 查询${functionName}列表所有
+     */
+    @ResponseBody
+    @PostMapping(value = "/list")
+    public Result<List<${ClassName}VO>> list(${ClassName}Request request) {
+        return ${serviceName}.list(request);
+    }
+
+    /**
+     * 新增${functionName}
+     */
+    @ResponseBody
+    @PostMapping(value = "/save")
+    public Result<${ClassName}VO> save(${ClassName}Request request) {
+        return ${serviceName}.save(request);
+    }
+
+    /**
+     * 修改${functionName}
+     */
+    @ResponseBody
+    @PostMapping(value = "/update")
+    public Result<${ClassName}VO> update(${ClassName}Request request) {
+        return ${serviceName}.update(request);
+    }
+
+    /**
+     * 删除${functionName}
+     */
+    @ResponseBody
+    @GetMapping(value = "/remove")
+    public Result<${ClassName}VO> remove(Long pkId) {
+        return ${serviceName}.remove(pkId);
+    }
+}

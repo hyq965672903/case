@@ -1,0 +1,35 @@
+package ${packageName}.pojo.${moduleName}.request;
+
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import javax.validation.constraints.*;
+
+import java.util.Date;
+
+#foreach ($import in $importList)
+import ${import};
+#end
+
+
+/**
+ * ${functionName}业务对象 ${tableName}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class ${ClassName}Request  {
+
+#foreach ($column in $columns)
+#if(!$table.isSuperColumn($column.javaField) && ($column.query || $column.isInsert || $column.isEdit))
+    /**
+     * $column.columnComment
+     */
+#end
+    private $column.javaType $column.javaField;
+
+#end
+}

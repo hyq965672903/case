@@ -1,0 +1,48 @@
+package ${packageName}.service.${moduleName};
+
+import ${packageName}.pojo.${moduleName}.VO.${ClassName}VO;
+import ${packageName}.pojo.${moduleName}.request.${ClassName}PageRequest;
+import ${packageName}.pojo.${moduleName}.request.${ClassName}Request;
+import sg.ncs.csu.result.PageVO;
+import sg.ncs.csu.result.Result;
+
+import java.util.List;
+
+/**
+ * ${functionName}Service接口
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${ClassName}Service {
+
+    /**
+     * 查询${functionName}
+     */
+    Result<${ClassName}VO> getById(Long pkId);
+
+     /**
+     * 查询${functionName}分页列表
+     */
+    Result<PageVO<${ClassName}VO>> listPage(${ClassName}PageRequest request);
+
+    /**
+     * 查询${functionName}列表
+     */
+    Result<List<{ClassName}VO>> list(${ClassName}Request request);
+
+    /**
+     * 新增${functionName}
+     */
+    Result save(${ClassName}Request request);
+
+    /**
+     * 修改${functionName}
+     */
+    Result update(${ClassName}Request request);
+
+    /**
+     * 删除${functionName}
+     */
+    Result remove(Long pkId);
+}
