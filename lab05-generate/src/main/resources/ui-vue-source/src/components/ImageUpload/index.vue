@@ -47,7 +47,7 @@
 
 <script setup>
 import { getToken } from "@/utils/auth";
-import { listByIds, delOss } from "@/api/system/oss";
+// import { listByIds, delOss } from "@/api/system/oss";
 
 const props = defineProps({
   modelValue: [String, Object, Array],
@@ -94,9 +94,9 @@ watch(() => props.modelValue, async val => {
     if (Array.isArray(val)) {
       list = val;
     } else {
-      await listByIds(val).then(res => {
-        list = res.data;
-      })
+      // await listByIds(val).then(res => {
+      //   list = res.data;
+      // })
     }
     // 然后将数组转为对象数组
     fileList.value = list.map(item => {
@@ -172,7 +172,7 @@ function handleDelete(file) {
   const findex = fileList.value.map(f => f.name).indexOf(file.name);
   if (findex > -1 && uploadList.value.length === number.value) {
     let ossId = fileList.value[findex].ossId;
-    delOss(ossId);
+    // delOss(ossId);
     fileList.value.splice(findex, 1);
     emit("update:modelValue", listToString(fileList.value));
     return false;

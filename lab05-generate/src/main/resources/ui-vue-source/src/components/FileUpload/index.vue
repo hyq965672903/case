@@ -40,7 +40,7 @@
 
 <script setup>
 import { getToken } from "@/utils/auth";
-import { listByIds, delOss } from "@/api/system/oss";
+// import { listByIds, delOss } from "@/api/system/oss";
 
 const props = defineProps({
   modelValue: [String, Object, Array],
@@ -87,10 +87,10 @@ watch(() => props.modelValue, async val => {
       list = val;
     } else {
       await listByIds(val).then(res => {
-        list = res.data.map(oss => {
-          oss = { name: oss.originalName, url: oss.url, ossId: oss.ossId };
-          return oss;
-        });
+        // list = res.data.map(oss => {
+        //   oss = { name: oss.originalName, url: oss.url, ossId: oss.ossId };
+        //   return oss;
+        // });
       })
     }
     // 然后将数组转为对象数组
@@ -157,7 +157,7 @@ function handleUploadSuccess(res, file) {
 // 删除文件
 function handleDelete(index) {
   let ossId = fileList.value[index].ossId;
-  delOss(ossId);
+  // delOss(ossId);
   fileList.value.splice(index, 1);
   emit("update:modelValue", listToString(fileList.value));
 }

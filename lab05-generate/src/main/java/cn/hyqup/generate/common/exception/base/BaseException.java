@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * 基础异常
  *
- * @author ruoyi
+ * @author  sys
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

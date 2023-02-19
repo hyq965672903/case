@@ -3,7 +3,7 @@ package cn.hyqup.generate.common.constant;
 /**
  * 通用常量信息
  *
- * @author ruoyi
+ * @author  sys
  */
 public interface Constants {
 
