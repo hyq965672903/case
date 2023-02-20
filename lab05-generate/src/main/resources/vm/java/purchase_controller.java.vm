@@ -1,6 +1,7 @@
 package ${packageName}.controller.${moduleName};
 
-
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
