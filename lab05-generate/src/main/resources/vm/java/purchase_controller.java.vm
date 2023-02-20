@@ -25,7 +25,7 @@ import java.util.List;
 @Api(tags = "${businessName}接口")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/${moduleName}/${businessName}")
+@RequestMapping("/api/${moduleName}")
 public class ${ClassName}Controller  {
 
     private final ${ClassName}Service ${serviceName};
