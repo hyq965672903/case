@@ -2,7 +2,8 @@ package ${packageName}.pojo.${moduleName}.request;
 
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.*;
 import sg.ncs.csu.base.BasePageRequest;
 
@@ -19,9 +20,7 @@ import ${import};
  * @author ${author}
  * @date ${datetime}
  */
-@ApiModel("${functionName}分页查询对象")
 @Data
-@EqualsAndHashCode(callSuper = true)
 @ApiModel(description="${functionName}分页请求对象")
 public class ${ClassName}PageRequest extends BasePageRequest  {
 

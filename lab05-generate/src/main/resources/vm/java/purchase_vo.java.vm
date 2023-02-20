@@ -1,5 +1,7 @@
 package ${packageName}.pojo.${moduleName}.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 #foreach ($import in $importList)
 import ${import};
 #end
@@ -15,7 +17,6 @@ import java.util.Date;
  * @date ${datetime}
  */
 @Data
-@ExcelIgnoreUnannotated
 @ApiModel(description="${functionName}对象")
 public class ${ClassName}VO {
 

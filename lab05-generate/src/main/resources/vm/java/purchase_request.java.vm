@@ -2,7 +2,8 @@ package ${packageName}.pojo.${moduleName}.request;
 
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.*;
 
 import java.util.Date;
@@ -20,7 +21,6 @@ import ${import};
  */
 
 @Data
-@EqualsAndHashCode(callSuper = true)
 @ApiModel(description="${functionName}请求对象")
 public class ${ClassName}Request  {
 

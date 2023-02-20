@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ${packageName}.mapper.${moduleName}.${ClassName}Mapper;
-import ${packageName}.pojo.${moduleName}.VO.${ClassName}VO;
+import ${packageName}.pojo.${moduleName}.vo.${ClassName}VO;
 import ${packageName}.pojo.${moduleName}.entity.${ClassName}DO;
 import ${packageName}.pojo.${moduleName}.request.${ClassName}PageRequest;
 import ${packageName}.pojo.${moduleName}.request.${ClassName}Request;

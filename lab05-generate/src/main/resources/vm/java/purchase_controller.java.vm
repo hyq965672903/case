@@ -4,7 +4,7 @@ package ${packageName}.controller.${moduleName};
 import lombok.RequiredArgsConstructor;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
-import ${packageName}.pojo.${moduleName}.VO.${ClassName}VO;
+import ${packageName}.pojo.${moduleName}.vo.${ClassName}VO;
 import ${packageName}.pojo.${moduleName}.request.${ClassName}PageRequest;
 import ${packageName}.pojo.${moduleName}.request.${ClassName}Request;
 import sg.ncs.csu.result.PageVO;
@@ -24,7 +24,7 @@ import ${packageName}.service.${moduleName}.${ClassName}Service;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/${moduleName}/${businessName}")
-public class ${ClassName}Controller extends BaseController {
+public class ${ClassName}Controller  {
 
     private final ${ClassName}Service ${serviceName};
 
