@@ -15,6 +15,7 @@ import ${packageName}.pojo.${moduleName}.request.${ClassName}PageRequest;
 import ${packageName}.pojo.${moduleName}.request.${ClassName}Request;
 import sg.ncs.csu.result.PageVO;
 import sg.ncs.csu.result.Result;
+import sg.ncs.csu.result.ResultCode;
 import ${packageName}.service.${moduleName}.${ClassName}Service;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
         if (ObjectUtil.isNotNull(${littelClassName}VO)) {
             return Result.data(${littelClassName}VO);
         }
-        return Result.fail();
+        return Result.fail(ResultCode.NO_DATA);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
         if (CollectionUtil.isNotEmpty(list)) {
             return Result.data(list);
         }
-        return Result.fail();
+        return Result.fail(ResultCode.NO_DATA);
     }
 
     @Override
