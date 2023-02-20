@@ -20,7 +20,7 @@ import ${packageName}.service.${moduleName}.${ClassName}Service;
  * @author ${author}
  * @date ${datetime}
  */
-@Validated
+@Api(tags = "${businessName}接口")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/${moduleName}/${businessName}")
@@ -33,6 +33,7 @@ public class ${ClassName}Controller extends BaseController {
      *
      * @param ${pkColumn.javaField} 主键
      */
+    @ApiOperation(value = "获取${functionName}详细信息")
     @ResponseBody
     @GetMapping(value = "/getById")
     public Result<${ClassName}VO> getById(@RequestParam Long pkId) {
@@ -42,6 +43,7 @@ public class ${ClassName}Controller extends BaseController {
    /**
      * 查询${functionName}分页列表
      */
+    @ApiOperation(value = "查询${functionName}分页列表")
     @ResponseBody
     @PostMapping(value = "/listPage")
     public Result<PageVO<${ClassName}VO>> listPage(${ClassName}PageRequest request) {
@@ -51,6 +53,7 @@ public class ${ClassName}Controller extends BaseController {
     /**
      * 查询${functionName}列表所有
      */
+    @ApiOperation(value = "查询${functionName}列表所有")
     @ResponseBody
     @PostMapping(value = "/list")
     public Result<List<${ClassName}VO>> list(${ClassName}Request request) {
@@ -60,6 +63,7 @@ public class ${ClassName}Controller extends BaseController {
     /**
      * 新增${functionName}
      */
+    @ApiOperation(value = "新增${functionName}")
     @ResponseBody
     @PostMapping(value = "/save")
     public Result<${ClassName}VO> save(${ClassName}Request request) {
@@ -69,6 +73,7 @@ public class ${ClassName}Controller extends BaseController {
     /**
      * 修改${functionName}
      */
+    @ApiOperation(value = "修改${functionName}")
     @ResponseBody
     @PostMapping(value = "/update")
     public Result<${ClassName}VO> update(${ClassName}Request request) {
@@ -78,6 +83,7 @@ public class ${ClassName}Controller extends BaseController {
     /**
      * 删除${functionName}
      */
+    @ApiOperation(value = "删除${functionName}")
     @ResponseBody
     @GetMapping(value = "/remove")
     public Result<${ClassName}VO> remove(Long pkId) {

@@ -22,6 +22,7 @@ import ${import};
 @ApiModel("${functionName}分页查询对象")
 @Data
 @EqualsAndHashCode(callSuper = true)
+@ApiModel(description="${functionName}分页请求对象")
 public class ${ClassName}PageRequest extends BasePageRequest  {
 
     @ApiModelProperty("关键字")

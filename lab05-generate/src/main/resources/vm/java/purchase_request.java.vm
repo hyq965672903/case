@@ -21,14 +21,14 @@ import ${import};
 
 @Data
 @EqualsAndHashCode(callSuper = true)
+@ApiModel(description="${functionName}请求对象")
 public class ${ClassName}Request  {
 
 #foreach ($column in $columns)
-#if(!$table.isSuperColumn($column.javaField) && ($column.query || $column.isInsert || $column.isEdit))
     /**
      * $column.columnComment
      */
-#end
+    @ApiModelProperty(value = "$column.columnComment")
     private $column.javaType $column.javaField;
 
 #end

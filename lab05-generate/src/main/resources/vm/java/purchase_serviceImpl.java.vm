@@ -70,6 +70,9 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
 
     @Override
     public Result update(${ClassName}Request request) {
+        if (ObjectUtil.isNull(request.getPkId())){
+            return Result.fail("修改的时候主键不能为空");
+        }
         ${ClassName}DO ${littelClassName}DO = BeanUtil.copyProperties(request, ${ClassName}DO.class);
         int flag = ${littelClassName}Mapper.updateById(${littelClassName}DO);
         if (flag > 0) {

@@ -16,6 +16,7 @@ import java.util.Date;
  */
 @Data
 @ExcelIgnoreUnannotated
+@ApiModel(description="${functionName}对象")
 public class ${ClassName}VO {
 
     private static final long serialVersionUID = 1L;
@@ -25,7 +26,7 @@ public class ${ClassName}VO {
     /**
      * $column.columnComment
      */
-
+    @ApiModelProperty(value = "$column.columnComment")
     private $column.javaType $column.javaField;
 
 #end
