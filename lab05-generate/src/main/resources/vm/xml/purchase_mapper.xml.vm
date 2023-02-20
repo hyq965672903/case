@@ -16,5 +16,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <sql id="Base_Column_List">
         ${varName}
-    <sql>
+    </sql>
 </mapper>

@@ -29,7 +29,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @Service
-public class ${ClassName}ServiceImpl implements I${ClassName}Service {
+public class ${ClassName}ServiceImpl implements ${ClassName}Service {
 
     private final ${ClassName}Mapper ${littelClassName}Mapper;
 

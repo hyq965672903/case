@@ -11,6 +11,8 @@ import sg.ncs.csu.result.PageVO;
 import sg.ncs.csu.result.Result;
 import ${packageName}.service.${moduleName}.${ClassName}Service;
 
+import java.util.List;
+
 
 #set($serviceName="${ClassName.substring(0, 1).toLowerCase()}${ClassName.substring(1)}Service")
 
