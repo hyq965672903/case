@@ -2,6 +2,7 @@ package cn.hyqup.demo.exception;
 
 import cn.hyqup.demo.result.Result;
 import cn.hyqup.demo.result.ResultCode;
+import cn.hyqup.validator.exception.ValidateException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.core.Ordered;
@@ -99,6 +100,21 @@ public class ValidateExceptionHandler {
     public <T> Result<T> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error("MethodArgumentNotValidException:{}", e.getMessage());
         String msg = e.getBindingResult().getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining("；"));
+        return Result.fail(ResultCode.PARAM_ERROR, msg);
+    }
+
+
+    /**
+     * 自定义注解参数校验
+     * @param e
+     * @return
+     * @param <T>
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ValidateException.class)
+    public <T> Result<T> handleValidateException(ValidateException e) {
+        log.error("ValidateException:{}", e.getMessage());
+        String msg =e.getMessage();
         return Result.fail(ResultCode.PARAM_ERROR, msg);
     }
 
