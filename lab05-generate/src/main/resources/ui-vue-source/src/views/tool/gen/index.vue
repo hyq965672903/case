@@ -231,7 +231,7 @@ function handleGenTable(row) {
       proxy.$modal.msgSuccess("成功生成到自定义路径：" + row.genPath);
     });
   } else {
-    proxy.$download.zip("/tool/gen/batchGenCode?tables=" + tbNames, "geneartorCode.zip");
+    proxy.$download.zip("tool/gen/batchGenCode?tables=" + tbNames, "geneartorCode.zip");
   }
 }
 /** 同步数据库操作 */

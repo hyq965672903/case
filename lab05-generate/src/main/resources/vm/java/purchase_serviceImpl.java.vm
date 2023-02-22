@@ -63,10 +63,7 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
     public Result save(${ClassName}Request request) {
         ${ClassName}DO ${littelClassName}DO = BeanUtil.copyProperties(request, ${ClassName}DO.class);
         int flag = ${littelClassName}Mapper.insert(${littelClassName}DO);
-        if (flag > 0) {
-            return Result.success();
-        }
-        return Result.fail();
+        return Result.judge(flag);
     }
 
     @Override
@@ -76,18 +73,12 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
         }
         ${ClassName}DO ${littelClassName}DO = BeanUtil.copyProperties(request, ${ClassName}DO.class);
         int flag = ${littelClassName}Mapper.updateById(${littelClassName}DO);
-        if (flag > 0) {
-            return Result.success();
-        }
-        return Result.fail();
+        return Result.judge(flag);
     }
 
     @Override
     public Result remove(Long pkId) {
         int flag = ${littelClassName}Mapper.deleteById(pkId);
-        if (flag > 0) {
-            return Result.success();
-        }
-        return Result.fail();
+        return Result.judge(flag);
     }
 }
