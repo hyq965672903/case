@@ -24,7 +24,6 @@ import sg.ncs.csu.base.BaseEntity;
     #set($Entity="BaseEntity")
 #end
 @Data
-@EqualsAndHashCode(callSuper = true)
 @TableName("${tableName}")
 public class ${ClassName}DO extends ${Entity} {
 

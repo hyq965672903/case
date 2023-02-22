@@ -6,7 +6,8 @@ import io.swagger.annotations.ApiModelProperty;
 import ${import};
 #end
 import lombok.Data;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 
 
