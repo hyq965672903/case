@@ -61,6 +61,9 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
 
     @Override
     public Result save(${ClassName}Request request) {
+        if (ObjectUtil.isNotEmpty(request.getPkId())) {
+            return Result.fail(ResultCode.ADD_NOT_NEED_ID);
+        }
         ${ClassName}DO ${littelClassName}DO = BeanUtil.copyProperties(request, ${ClassName}DO.class);
         int flag = ${littelClassName}Mapper.insert(${littelClassName}DO);
         return Result.judge(flag);
@@ -68,8 +71,8 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
 
     @Override
     public Result update(${ClassName}Request request) {
-        if (ObjectUtil.isNull(request.getPkId())){
-            return Result.fail("修改的时候主键不能为空");
+        if (ObjectUtil.isEmpty(request.getPkId())) {
+            return Result.fail(ResultCode.UPDATE_ID_NOT_NULL);
         }
         ${ClassName}DO ${littelClassName}DO = BeanUtil.copyProperties(request, ${ClassName}DO.class);
         int flag = ${littelClassName}Mapper.updateById(${littelClassName}DO);

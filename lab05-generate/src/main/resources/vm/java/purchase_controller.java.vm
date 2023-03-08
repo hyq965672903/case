@@ -31,11 +31,7 @@ public class ${ClassName}Controller  {
 
     private final ${ClassName}Service ${serviceName};
 
-   /**
-     * 获取${functionName}详细信息
-     *
-     * @param ${pkColumn.javaField} 主键
-     */
+ 
     @ApiOperation(value = "获取${functionName}详细信息")
     @ResponseBody
     @GetMapping(value = "/getById")
@@ -43,9 +39,7 @@ public class ${ClassName}Controller  {
         return ${serviceName}.getById(pkId);
     }
 
-   /**
-     * 查询${functionName}分页列表
-     */
+
     @ApiOperation(value = "查询${functionName}分页列表")
     @ResponseBody
     @PostMapping(value = "/listPage")
@@ -53,9 +47,6 @@ public class ${ClassName}Controller  {
         return ${serviceName}.listPage(request);
     }
 
-    /**
-     * 查询${functionName}列表所有
-     */
     @ApiOperation(value = "查询${functionName}列表所有")
     @ResponseBody
     @PostMapping(value = "/list")
@@ -63,9 +54,7 @@ public class ${ClassName}Controller  {
         return ${serviceName}.list(request);
     }
 
-    /**
-     * 新增${functionName}
-     */
+ 
     @ApiOperation(value = "新增${functionName}")
     @ResponseBody
     @PostMapping(value = "/save")
@@ -73,9 +62,7 @@ public class ${ClassName}Controller  {
         return ${serviceName}.save(request);
     }
 
-    /**
-     * 修改${functionName}
-     */
+
     @ApiOperation(value = "修改${functionName}")
     @ResponseBody
     @PostMapping(value = "/update")
@@ -83,9 +70,6 @@ public class ${ClassName}Controller  {
         return ${serviceName}.update(request);
     }
 
-    /**
-     * 删除${functionName}
-     */
     @ApiOperation(value = "删除${functionName}")
     @ResponseBody
     @GetMapping(value = "/remove")
