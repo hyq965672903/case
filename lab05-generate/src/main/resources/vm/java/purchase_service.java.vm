@@ -1,6 +1,6 @@
 package ${packageName}.service.${moduleName};
 
-import ${packageName}.pojo.${moduleName}.VO.${ClassName}VO;
+import ${packageName}.pojo.${moduleName}.vo.${ClassName}VO;
 import ${packageName}.pojo.${moduleName}.request.${ClassName}PageRequest;
 import ${packageName}.pojo.${moduleName}.request.${ClassName}Request;
 import sg.ncs.csu.result.PageVO;
@@ -29,7 +29,7 @@ public interface ${ClassName}Service {
     /**
      * 查询${functionName}列表
      */
-    Result<List<{ClassName}VO>> list(${ClassName}Request request);
+    Result<List<${ClassName}VO>> list(${ClassName}Request request);
 
     /**
      * 新增${functionName}

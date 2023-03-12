@@ -9,12 +9,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ${packageName}.mapper.${moduleName}.${ClassName}Mapper;
-import ${packageName}.pojo.${moduleName}.VO.${ClassName}VO;
+import ${packageName}.pojo.${moduleName}.vo.${ClassName}VO;
 import ${packageName}.pojo.${moduleName}.entity.${ClassName}DO;
 import ${packageName}.pojo.${moduleName}.request.${ClassName}PageRequest;
 import ${packageName}.pojo.${moduleName}.request.${ClassName}Request;
 import sg.ncs.csu.result.PageVO;
 import sg.ncs.csu.result.Result;
+import sg.ncs.csu.result.ResultCode;
 import ${packageName}.service.${moduleName}.${ClassName}Service;
 
 import java.util.List;
@@ -29,7 +30,7 @@ import java.util.List;
  */
 @RequiredArgsConstructor
 @Service
-public class ${ClassName}ServiceImpl implements I${ClassName}Service {
+public class ${ClassName}ServiceImpl implements ${ClassName}Service {
 
     private final ${ClassName}Mapper ${littelClassName}Mapper;
 
@@ -39,7 +40,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
         if (ObjectUtil.isNotNull(${littelClassName}VO)) {
             return Result.data(${littelClassName}VO);
         }
-        return Result.fail();
+        return Result.fail(ResultCode.NO_DATA);
     }
 
     @Override
@@ -50,40 +51,37 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service {
     }
 
     @Override
-    public Result<List<${ClassName}VO>> list(${ClassName}Request bo) {
+    public Result<List<${ClassName}VO>> list(${ClassName}Request request) {
         List<${ClassName}VO> list = ${littelClassName}Mapper.selectVoList(null);
         if (CollectionUtil.isNotEmpty(list)) {
             return Result.data(list);
         }
-        return Result.fail();
+        return Result.fail(ResultCode.NO_DATA);
     }
 
     @Override
     public Result save(${ClassName}Request request) {
+        if (ObjectUtil.isNotEmpty(request.getPkId())) {
+            return Result.fail(ResultCode.ADD_NOT_NEED_ID);
+        }
         ${ClassName}DO ${littelClassName}DO = BeanUtil.copyProperties(request, ${ClassName}DO.class);
         int flag = ${littelClassName}Mapper.insert(${littelClassName}DO);
-        if (flag > 0) {
-            return Result.success();
-        }
-        return Result.fail();
+        return Result.judge(flag);
     }
 
     @Override
     public Result update(${ClassName}Request request) {
+        if (ObjectUtil.isEmpty(request.getPkId())) {
+            return Result.fail(ResultCode.UPDATE_ID_NOT_NULL);
+        }
         ${ClassName}DO ${littelClassName}DO = BeanUtil.copyProperties(request, ${ClassName}DO.class);
         int flag = ${littelClassName}Mapper.updateById(${littelClassName}DO);
-        if (flag > 0) {
-            return Result.success();
-        }
-        return Result.fail();
+        return Result.judge(flag);
     }
 
     @Override
     public Result remove(Long pkId) {
         int flag = ${littelClassName}Mapper.deleteById(pkId);
-        if (flag > 0) {
-            return Result.success();
-        }
-        return Result.fail();
+        return Result.judge(flag);
     }
 }

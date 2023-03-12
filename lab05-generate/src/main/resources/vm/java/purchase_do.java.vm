@@ -7,6 +7,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.math.BigDecimal;
 
+import java.time.LocalDateTime;
+
 #foreach ($import in $importList)
 import ${import};
 #end
@@ -24,7 +26,6 @@ import sg.ncs.csu.base.BaseEntity;
     #set($Entity="BaseEntity")
 #end
 @Data
-@EqualsAndHashCode(callSuper = true)
 @TableName("${tableName}")
 public class ${ClassName}DO extends ${Entity} {
 

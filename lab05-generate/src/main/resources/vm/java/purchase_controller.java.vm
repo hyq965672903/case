@@ -1,15 +1,18 @@
 package ${packageName}.controller.${moduleName};
 
-
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
-import ${packageName}.pojo.${moduleName}.VO.${ClassName}VO;
+import ${packageName}.pojo.${moduleName}.vo.${ClassName}VO;
 import ${packageName}.pojo.${moduleName}.request.${ClassName}PageRequest;
 import ${packageName}.pojo.${moduleName}.request.${ClassName}Request;
 import sg.ncs.csu.result.PageVO;
 import sg.ncs.csu.result.Result;
 import ${packageName}.service.${moduleName}.${ClassName}Service;
+
+import java.util.List;
 
 
 #set($serviceName="${ClassName.substring(0, 1).toLowerCase()}${ClassName.substring(1)}Service")
@@ -20,64 +23,54 @@ import ${packageName}.service.${moduleName}.${ClassName}Service;
  * @author ${author}
  * @date ${datetime}
  */
-@Validated
+@Api(tags = "${businessName}接口")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/${moduleName}/${businessName}")
-public class ${ClassName}Controller extends BaseController {
+@RequestMapping("/api/${moduleName}")
+public class ${ClassName}Controller  {
 
     private final ${ClassName}Service ${serviceName};
 
-   /**
-     * 获取${functionName}详细信息
-     *
-     * @param ${pkColumn.javaField} 主键
-     */
+ 
+    @ApiOperation(value = "获取${functionName}详细信息")
     @ResponseBody
     @GetMapping(value = "/getById")
     public Result<${ClassName}VO> getById(@RequestParam Long pkId) {
         return ${serviceName}.getById(pkId);
     }
 
-   /**
-     * 查询${functionName}分页列表
-     */
+
+    @ApiOperation(value = "查询${functionName}分页列表")
     @ResponseBody
     @PostMapping(value = "/listPage")
-    public Result<PageVO<${ClassName}VO>> listPage(${ClassName}PageRequest request) {
+    public Result<PageVO<${ClassName}VO>> listPage(@RequestBody ${ClassName}PageRequest request) {
         return ${serviceName}.listPage(request);
     }
 
-    /**
-     * 查询${functionName}列表所有
-     */
+    @ApiOperation(value = "查询${functionName}列表所有")
     @ResponseBody
     @PostMapping(value = "/list")
-    public Result<List<${ClassName}VO>> list(${ClassName}Request request) {
+    public Result<List<${ClassName}VO>> list(@RequestBody ${ClassName}Request request) {
         return ${serviceName}.list(request);
     }
 
-    /**
-     * 新增${functionName}
-     */
+ 
+    @ApiOperation(value = "新增${functionName}")
     @ResponseBody
     @PostMapping(value = "/save")
-    public Result<${ClassName}VO> save(${ClassName}Request request) {
+    public Result<${ClassName}VO> save(@RequestBody ${ClassName}Request request) {
         return ${serviceName}.save(request);
     }
 
-    /**
-     * 修改${functionName}
-     */
+
+    @ApiOperation(value = "修改${functionName}")
     @ResponseBody
     @PostMapping(value = "/update")
-    public Result<${ClassName}VO> update(${ClassName}Request request) {
+    public Result<${ClassName}VO> update(@RequestBody ${ClassName}Request request) {
         return ${serviceName}.update(request);
     }
 
-    /**
-     * 删除${functionName}
-     */
+    @ApiOperation(value = "删除${functionName}")
     @ResponseBody
     @GetMapping(value = "/remove")
     public Result<${ClassName}VO> remove(Long pkId) {

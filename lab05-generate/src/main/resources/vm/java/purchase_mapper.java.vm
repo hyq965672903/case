@@ -1,7 +1,7 @@
 package ${packageName}.mapper.${moduleName};
 
 import sg.ncs.csu.mapper.BaseMapperPlus;
-import ${packageName}.pojo.${moduleName}.VO.${ClassName}VO;
+import ${packageName}.pojo.${moduleName}.vo.${ClassName}VO;
 import ${packageName}.pojo.${moduleName}.entity.${ClassName}DO;
 
 /**

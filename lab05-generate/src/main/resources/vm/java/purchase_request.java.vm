@@ -2,10 +2,11 @@ package ${packageName}.pojo.${moduleName}.request;
 
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 #foreach ($import in $importList)
 import ${import};
@@ -20,16 +21,16 @@ import ${import};
  */
 
 @Data
-@EqualsAndHashCode(callSuper = true)
+@ApiModel(description="${functionName}请求对象")
 public class ${ClassName}Request  {
 
 #foreach ($column in $columns)
-#if(!$table.isSuperColumn($column.javaField) && ($column.query || $column.isInsert || $column.isEdit))
-    /**
+#if(!$table.isSuperColumn($column.javaField))
+  /**
      * $column.columnComment
      */
-#end
+    @ApiModelProperty(value = "$column.columnComment")
     private $column.javaType $column.javaField;
-
+#end
 #end
 }
