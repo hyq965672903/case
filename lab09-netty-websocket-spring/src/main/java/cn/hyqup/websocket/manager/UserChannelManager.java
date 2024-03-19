@@ -72,6 +72,12 @@ public class UserChannelManager {
         log.info("客户端：{} 断开连接", userId);
         log.info("客户端还有{}个连接中", getOnlineUserCount());
     }
+    /**
+     * 获取所有的在线用户
+     */
+    public static ChannelGroup getOnlineChannelGroup() {
+        return onlineChannelGroup;
+    }
 
     /**
      * 获取在线用户

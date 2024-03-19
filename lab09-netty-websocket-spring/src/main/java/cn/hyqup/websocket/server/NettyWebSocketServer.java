@@ -26,8 +26,8 @@ public class NettyWebSocketServer {
 
     public void init() {
         ServerBootstrap serverBootstrap = new ServerBootstrap();
-        bossGroup = new NioEventLoopGroup(1, new DefaultThreadFactory("BOSS-GROUP", true));
-        workerGroup = new NioEventLoopGroup(2, new DefaultThreadFactory("WORKER-GROUP", true));
+        bossGroup = new NioEventLoopGroup(1, new DefaultThreadFactory("BOSS-GP", true));
+        workerGroup = new NioEventLoopGroup(2, new DefaultThreadFactory("WORKER-GP", true));
         serverBootstrap.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
                 .option(ChannelOption.SO_RCVBUF, 1024 * 1024)// 设置读取缓冲区大小

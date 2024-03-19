@@ -18,7 +18,13 @@ public class WebSocketConfig {
     public static void init(){
         NettyWebSocketServer server = new NettyWebSocketServer();
         server.init();
-        server.start();
+        new Thread(){
+            @Override
+            public void run(){
+                server.start();
+            }
+        }.start();
+
         /**
          * jvm 退出时关闭
          */
