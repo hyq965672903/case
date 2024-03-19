@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Copyright © 2024. All rights reserved.
@@ -33,6 +34,8 @@ public class UserChannelManager {
      * 存储所有在线的userId与之对应的Channel
      */
     private static final ConcurrentMap<String, Channel> onlineUserChannelMap = new ConcurrentHashMap<>();
+
+    private static AtomicInteger onlineUserCount = new AtomicInteger(0);
 
     private static <T> void setAttribute(Channel channel, String key, T value) {
         AttributeKey<T> attrKey = AttributeKey.valueOf(key);
@@ -58,8 +61,8 @@ public class UserChannelManager {
         onlineChannelGroup.add(channel);
         setAttribute(channel, AttributeKeyConstant.USER_ID, userId);
         setAttribute(channel, AttributeKeyConstant.WS_TOKEN_KEY, wsToken);
-
-        log.info("当前在线用户共{}个", getOnlineUserCount());
+        int count = onlineUserCount.incrementAndGet();
+        log.info("当前在线用户共{}个", count);
 
     }
 
@@ -73,7 +76,8 @@ public class UserChannelManager {
         onlineUserChannelMap.remove(userId);
         onlineChannelGroup.remove(channel);
         log.info("客户端：{} 断开连接", userId);
-        log.info("客户端还有{}个连接中", getOnlineUserCount());
+        int count = onlineUserCount.decrementAndGet();
+        log.info("客户端还有{}个连接中", count);
     }
     /**
      * 获取所有的在线用户
@@ -96,7 +100,7 @@ public class UserChannelManager {
      * 获取在线用户人数
      */
     public static int getOnlineUserCount() {
-        return onlineUserChannelMap.size();
+        return onlineUserCount.get();
     }
 
 }
