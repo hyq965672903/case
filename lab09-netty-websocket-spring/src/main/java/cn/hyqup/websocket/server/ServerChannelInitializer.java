@@ -1,7 +1,7 @@
 package cn.hyqup.websocket.server;
 
-import cn.hyqup.websocket.handler.NettyWebSocketHandler;
-import cn.hyqup.websocket.handler.WebSocketIdleStateHandler;
+import cn.hyqup.websocket.handler.AuthHandler;
+import cn.hyqup.websocket.handler.MessageHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -9,9 +9,6 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
-import io.netty.handler.timeout.IdleStateHandler;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Copyright © 2024. All rights reserved.
@@ -19,7 +16,7 @@ import java.util.concurrent.TimeUnit;
  * @author create by hyq
  * @version 1.0
  * @date 2024/3/18
- * @description:
+ * @description: handlerAdded() –> channelRegistered() –> channelActive() –> channelRead() –> channelReadComplete()
  */
 public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
     @Override
@@ -35,8 +32,12 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
          */
         pipeline.addLast(new HttpObjectAggregator(1024 * 1024 * 1024));
 
+
+        // 自定义的handler，处理身份验证
+        pipeline.addLast(new AuthHandler());
+
         // 心跳检测handler,重写IdleStateHandler
-        pipeline.addLast(new WebSocketIdleStateHandler());
+//        pipeline.addLast(new WebSocketIdleStateHandler());
 
         /**
          * 对于websocket他的数据是以frame的形式传递的
@@ -47,8 +48,8 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
          */
         pipeline.addLast(new WebSocketServerProtocolHandler("/ws", null, true, 65536 * 10));
 
-        // 添加自定义handler,用户
-        pipeline.addLast(new NettyWebSocketHandler());
+
+        pipeline.addLast(new MessageHandler());
 
 
     }
