@@ -58,6 +58,9 @@ public class UserChannelManager {
         onlineChannelGroup.add(channel);
         setAttribute(channel, AttributeKeyConstant.USER_ID, userId);
         setAttribute(channel, AttributeKeyConstant.WS_TOKEN_KEY, wsToken);
+
+        log.info("当前在线用户共{}个", getOnlineUserCount());
+
     }
 
     /**

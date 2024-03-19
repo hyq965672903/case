@@ -2,6 +2,7 @@ package cn.hyqup.websocket.config;
 
 import cn.hyqup.websocket.server.NettyWebSocketServer;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,18 +13,15 @@ import org.springframework.stereotype.Component;
  * @date 2024/3/19
  * @description:
  */
+@Slf4j
 @Component
 public class WebSocketConfig {
     @PostConstruct
     public static void init(){
         NettyWebSocketServer server = new NettyWebSocketServer();
         server.init();
-        new Thread(){
-            @Override
-            public void run(){
-                server.start();
-            }
-        }.start();
+        //这里要新开一个线程，否则会阻塞原本的controller等业务
+        new Thread(() -> server.start(), "netty-websocket-server").start();
 
         /**
          * jvm 退出时关闭
@@ -31,8 +29,8 @@ public class WebSocketConfig {
         Runtime.getRuntime().addShutdownHook(new Thread(){
             @Override
             public void run(){
+                log.info("钩子函数执行,优雅停止netty server");
                 server.shutdown();
-                System.exit(0);
             }
         });
 

@@ -28,12 +28,12 @@ public class MessageHandler extends SimpleChannelInboundHandler<TextWebSocketFra
         log.info("ctx的ID:{}", ctx.channel());
         String text = textWebSocketFrame.text();
         log.info("收到客户端消息:{}", text);
+        ctx.channel().writeAndFlush(new TextWebSocketFrame("收到客户端消息：" + text));
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         log.info("+++++++++++有连接请求：{}==>{}+++++++++++", ctx.channel().id(), ctx.channel().remoteAddress());
-        log.info("当前在线用户共{}个", UserChannelManager.getOnlineUserCount());
     }
 
 

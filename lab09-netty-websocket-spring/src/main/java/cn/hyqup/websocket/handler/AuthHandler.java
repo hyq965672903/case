@@ -24,8 +24,6 @@ public class AuthHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.info("进入AuthHandler 的 channelRead方法");
-        log.info("ctx的ID:{}",ctx.channel());
         if (msg instanceof FullHttpRequest) {
             FullHttpRequest request = (FullHttpRequest) msg;
             HttpHeaders headers = request.headers();

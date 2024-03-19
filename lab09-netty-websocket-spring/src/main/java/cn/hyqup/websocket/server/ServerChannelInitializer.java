@@ -32,7 +32,6 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
          */
         pipeline.addLast(new HttpObjectAggregator(1024 * 1024 * 1024));
 
-
         // 自定义的handler，处理身份验证
         pipeline.addLast(new AuthHandler());
 
@@ -48,7 +47,7 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
          */
         pipeline.addLast(new WebSocketServerProtocolHandler("/ws", null, true, 65536 * 10));
 
-
+        //自定义消息message handler处理器
         pipeline.addLast(new MessageHandler());
 
 
