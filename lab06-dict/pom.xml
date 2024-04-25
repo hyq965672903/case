@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.hyqup</groupId>
-    <artifactId>dict</artifactId>
+    <artifactId>lab06-dict</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>lab06-dict</name>
     <description>lab06-dict</description>

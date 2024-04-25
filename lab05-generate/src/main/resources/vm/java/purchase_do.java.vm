@@ -1,12 +1,11 @@
 package ${packageName}.pojo.${moduleName}.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import java.io.Serializable;
-import java.util.Date;
-import java.math.BigDecimal;
+import sg.ncs.csu.base.BaseEntity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 #foreach ($import in $importList)
